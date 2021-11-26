@@ -1,1 +1,1 @@
-# -content-editable-component
+# content-editable-component
