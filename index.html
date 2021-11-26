@@ -97,11 +97,7 @@
 
             let addClassElement = document.getElementById("addClass");
             let listElement = document.getElementById("autoList");
-           
-           
-           
-
-            let classNames = [
+             let classNames = [
                 "border",
                 "border-1",
                 "border-2",
@@ -143,7 +139,9 @@
                     hintElement.innerHTML="";
                 }
                text  = normalizeHtml(addClassElement.innerHTML);
+               console.log("text", text);
                 let classes = splitTextIntoClasses(text);
+                console.log("classes", classes);
                 if (classes.length > 0) {
                     let lastEnterText = classes[classes.length - 1];
                     //  console.log("classes", classes);
@@ -189,6 +187,29 @@
                         event.preventDefault();
                         return;
                     }
+                    if (event.key === "ArrowRight") {
+                        let prevHtml = addClassElement.innerHTML;
+                        let hintElement =  addClassElement.querySelector("#hint")
+                        let hintText= hintElement.textContent
+                          hintElement.remove()
+                            prevHtml = addClassElement.innerHTML
+                          addClassElement.innerHTML = prevHtml+hintText
+                          replaceCaret(addClassElement)
+                        return;
+                    }
+                    // if (event.key === " ") {
+                    //     let hintText = " "
+                    //     let prevHtml = addClassElement.innerHTML;
+                    //     let hintElement =  addClassElement.querySelector("#hint")
+                    //     if(hintElement) {
+                    //         hintElement.innerHTML = " "
+                    //     }
+                    //      let  text  = normalizeHtml(addClassElement.innerHTML);
+                    //       addClassElement.innerHTML = text +hintText
+                    //       replaceCaret(addClassElement)
+                    //     return;
+                    // }
+
                 },
                 false
             );
