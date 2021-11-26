@@ -42,7 +42,6 @@
             }
 
             .autocomplete-list {
-                display: none;
                 padding: 0;
                 margin: 0;
                 list-style: none;
@@ -50,7 +49,7 @@
                 border: 1px solid #bcbcbc;
                 border-radius: 4px;
                 position: absolute;
-                top: 32px;
+                top: 42px;
                 max-width: 150px;
             }
             .autocomplete-list li {
@@ -156,7 +155,7 @@
                 }
             }
             let top1;
-            let t = 32;
+            let t = 40;
             const resizeOb = new ResizeObserver((entries) => {
                 // since we are observing only a single element, so we access the first element in entries array
                 let rect = entries[0].contentRect;
@@ -164,15 +163,14 @@
                 // current width & height
                 let width = rect.width;
                 let height = rect.height;
-                if (height <= 18.390625) {
-                    listElement.style.setProperty("top", 32 + "px");
+                if (height <= 20) {
+                    listElement.style.setProperty("top", t + "px");
                     return;
                 }
                 let style1 = window.getComputedStyle(listElement),
-                    top1 = style1.getPropertyValue("top");
-                // console.log(top1 )
-                t += 16;
-                let t2 = Number(height) + 10;
+                top1 = style1.getPropertyValue("top");
+                console.log("top1", top1);
+                let t2 = Number(height) + 20;
                 listElement.style.setProperty("top", t2 + "px");
             });
             resizeOb.observe(document.querySelector("#addClass"));
