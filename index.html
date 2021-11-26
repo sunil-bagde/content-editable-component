@@ -121,17 +121,28 @@
             function hintText(text) {
                 const template = document.getElementById("hint-wrapper");  
                 const firstClone = template.content.cloneNode(true);
-                let span = firstClone.querySelector('span');
-                 span.innerHTML= text 
-                 addClassElement.appendChild(document.importNode(firstClone, true));
+                let span = document.createElement('span');
+                    span.id="hint"
+                    span.className="hint"
+                    span.innerHTML= text
+                 span.addEventListener("click",(event) => {
+                    let hintText= event.target.textContent
+                    event.target.remove()
+                    let prevHtml = addClassElement.innerHTML
+                    addClassElement.innerHTML = prevHtml+hintText
+                    replaceCaret(addClassElement)
+                 })
+                 addClassElement.appendChild(span);
             }
            // hintText()
-            function listener(evt) { 
-                let prevHtml = addClassElement.innerHTML; 
-                console.log("prevHtml", prevHtml);
+           let text =""
+            function listener(evt) {
+                let prevHtml = addClassElement.innerHTML;
                 let hintElement =  addClassElement.querySelector("#hint")
-                let text = normalizeHtml(addClassElement.innerHTML);
-                //console.log(text);
+                if(hintElement) {
+                    hintElement.innerHTML="";
+                }
+               text  = normalizeHtml(addClassElement.innerHTML);
                 let classes = splitTextIntoClasses(text);
                 if (classes.length > 0) {
                     let lastEnterText = classes[classes.length - 1];
@@ -144,10 +155,6 @@
                     } else {
                         hintText(hint) 
                     }
-                    
-                   
-                       console.log("hintElement", hintElement);
-                    // addClassElement.appendChild(hintNode);
                 }
             }
             let top1;
@@ -178,7 +185,6 @@
             addClassElement.addEventListener(
                 "keydown",
                 (event) => {
-                    console.log(event.key);
                     if (event.key === "Enter") {
                         event.preventDefault();
                         return;
@@ -194,50 +200,24 @@
                 );
             }
 
-            /*setTimeout(() => {
-  let newNode = document.createElement('span');
-  
-  newNode.className = 'hint';
-  newNode.innerHTML = "er"
-  addClassElement.innerHTML = "bord"  ;
-  addClassElement .appendChild(newNode);
-},300)
-
-
-setTimeout(() => {
-  let prevHtml = addClassElement.innerHTML 
-  let newNode = document.createElement('span');
-   let newNode1 = document.createElement('div');
-
-  newNode.className = 'hint';
-  newNode.innerHTML = "er "
-  addClassElement.innerHTML = prevHtml + " bord"  ;
-  addClassElement.appendChild(newNode); 
-    newNode1.innerHTML=" s "
-   addClassElement.appendChild(newNode1); 
- 
- const target = document.createTextNode('');
-  addClassElement.appendChild(target);
-  
-},300)
-function replaceCaret(el) {
-  // Place the caret at the end of the element
-  const target = document.createTextNode('');
-  el.appendChild(target);
-  // do not move caret if element was not focused
-  const isTargetFocused = document.activeElement === el;
-  if (target !== null && target.nodeValue !== null && isTargetFocused) {
-    var sel = window.getSelection();
-    if (sel !== null) {
-      var range = document.createRange();
-      range.setStart(target, target.nodeValue.length);
-      range.collapse(true);
-      sel.removeAllRanges();
-      sel.addRange(range);
-    }
-    if (el) el.focus();
-  }
-}*/
+                 function replaceCaret(el) {
+                   // Place the caret at the end of the element
+                   const target = document.createTextNode('');
+                   el.appendChild(target);
+                   // do not move caret if element was not focused
+                   const isTargetFocused = document.activeElement === el;
+                   if (target !== null && target.nodeValue !== null && isTargetFocused) {
+                     var sel = window.getSelection();
+                     if (sel !== null) {
+                       var range = document.createRange();
+                       range.setStart(target, target.nodeValue.length);
+                       range.collapse(true);
+                       sel.removeAllRanges();
+                       sel.addRange(range);
+                     }
+                     if (el) el.focus();
+                   }
+                 }
         </script>
     </body>
 </html>

@@ -1,5 +1,14 @@
 {
+  "name": "content-editable-component",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/thesunilbagde/content-editable-component.git",
+  "author": "Sunil Bagde <bagdesunil786@gmail.com>",
+  "license": "MIT",
   "dependencies": {
-    "live-server": "^1.2.1"
-  }
+      "live-server": "^1.2.1"
+    },
+   "scripts": {
+    "start" :"live-server"
+   }
 }
